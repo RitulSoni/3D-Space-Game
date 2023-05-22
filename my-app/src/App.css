@@ -2,9 +2,10 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
-  background: linear-gradient(to right, rgb(10, 3, 70), transparent);
+  background: rgb(0, 0, 0);
   height: 100vh;
   color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .App {
@@ -24,35 +25,69 @@ canvas#canvas3d {
   background-color: transparent;
 }
 
-
-.App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  margin-top: 250px;
+.App-spline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 2s cubic-bezier(.25,.1,.25,1);
+  overflow: hidden;
 }
 
-.App-main {
-  color: white;
-  padding: 20px;
-  font-size: calc(5px + 2vmin);
+.App-spline.fade-out {
+  opacity: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.welcome-button {
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+.welcome-button {
+  padding: 20px 40px; /* make the button bigger */
+  font-size: 24px;
+  color: #fff;
+  background-color: #a7abbc17;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: "Comic Sans MS", cursive, sans-serif; /* Change the font */
+  position: absolute; /* Position it at center of the screen */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
+.welcome-button:hover {
+  background-color: #000000;
+  transform: translate(-50%, -50%) scale(2.5); /* Make it grow slightly when hovered */
+  box-shadow: 0px 0px 15px #ffffff; /* Make it glow when hovered */
+}
+
+.transparent-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+}
+
+.App-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
