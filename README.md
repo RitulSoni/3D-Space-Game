@@ -1,2 +1,0 @@
-# PersonalPortfolio
-Ritul Soni Website
