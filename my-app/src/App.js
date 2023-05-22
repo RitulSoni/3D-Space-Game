@@ -9,6 +9,7 @@ export default function App() {
   const [showSpline, setShowSpline] = useState(true);
   const [showButton, setShowButton] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [loadingTransition, setLoadingTransition] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +22,12 @@ export default function App() {
   }, []);
 
   const handleClick = () => {
-    navigate("/home");
     setButtonClicked(true);
+    setLoadingTransition(true);
+    setTimeout(() => {
+      navigate("/home");
+      setLoadingTransition(false);
+    }, 15000);
   }
 
   return (
@@ -39,6 +44,12 @@ export default function App() {
         <button className="transparent-button" onClick={handleClick}>
           <Spline scene="https://prod.spline.design/xDv3ZhzpGvGIxhGj/scene.splinecode" />
         </button>
+      }
+
+      {buttonClicked && loadingTransition &&
+        <div className="App-transition">
+          <Spline scene="https://prod.spline.design/7BLVzUVtBDAh4mEk/scene.splinecode" />
+        </div>
       }
 
       <Routes>
