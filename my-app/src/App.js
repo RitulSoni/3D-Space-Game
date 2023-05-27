@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Spline from '@splinetool/react-spline';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import NavBar from './NavBar/NavBar';
-import Home from './Home/home.js';
 
 export default function App() {
-  const [showSpline, setShowSpline] = useState(true);
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState(true);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [loadingTransition, setLoadingTransition] = useState(false);
-  const navigate = useNavigate();
+  const [showHome, setShowHome] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSpline(false);
       setShowButton(true);
     }, 7000);
 
@@ -25,36 +21,50 @@ export default function App() {
     setButtonClicked(true);
     setLoadingTransition(true);
     setTimeout(() => {
-      navigate("/home");
+      setShowHome(true);
       setLoadingTransition(false);
+      window.dispatchEvent(new Event('resize'));
     }, 15000);
   }
+  
+ 
+  function onKeyDown(e) {
+    if (e.target.name === 'Key Enter') {
+      console.log('I have been clicked!');
+      setTimeout(() => {
+        setButtonClicked(true);
+        window.dispatchEvent(new Event('resize'));
+      }, 1000); // 1 second
+    }
+  }
+
 
   return (
     <div className="App">
       <NavBar />
-
-      {showSpline && 
-        <div className="App-spline">
-          <Spline scene="https://prod.spline.design/MEHV8aAVdFEvGaAN/scene.splinecode" />
-        </div>
-      }
-
+      
+      {/* This is the Keyboard */}
       {showButton && !buttonClicked && 
         <button className="transparent-button" onClick={handleClick}>
-          <Spline scene="https://prod.spline.design/xDv3ZhzpGvGIxhGj/scene.splinecode" />
+           <Spline scene="https://prod.spline.design/9qjSbTIrw6UzUHwR/scene.splinecode" 
+           onKeyDown={onKeyDown}
+           />
         </button>
       }
 
+      {/* This is the rocket scene */}
       {buttonClicked && loadingTransition &&
-        <div className="App-transition">
+        <div className="game">
           <Spline scene="https://prod.spline.design/7BLVzUVtBDAh4mEk/scene.splinecode" />
         </div>
       }
 
-      <Routes>
-        <Route path="/home" element={<Home />} />
-      </Routes>
+      {/* This is the Astronaut Game */}
+      {showHome &&
+        <div className="game">
+          <Spline scene="https://prod.spline.design/tPkXNLDbag8M7mDj/scene.splinecode" />
+        </div>
+      }
     </div>
   );
 }
